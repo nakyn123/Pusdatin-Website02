@@ -76,3 +76,27 @@
     border-color: #94a3b8;
 }
 
+.btn-kembali-admin {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    background: #fff;
+    color: #475569 !important;
+    border: 1px solid #d1d5db;
+
+    padding: 8px 14px;
+    border-radius: 6px;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+.btn-kembali-admin:hover {
+    background: #f8f9fa;
+    color: var(--merah) !important;
+    border-color: var(--merah);
+}

@@ -64,7 +64,7 @@
                 <input type="text" name="detail[no_hp]" value="{{ old('detail.no_hp') }}" placeholder="Tuliskan Handphone" required>
             </div>
         </div>
->
+
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
             <div>
                 <label>Nomor BMN <span class="req">*</span></label>

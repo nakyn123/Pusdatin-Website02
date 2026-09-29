@@ -33,6 +33,15 @@
            <div class="grup">Publikasi & Konten</div>
             <a href="{{ route('admin.pengumuman.index') }}" class="{{ request()->routeIs('admin.pengumuman.*') ? 'aktif' : '' }}">&#128196; Informasi / Pengumuman</a>
             <a href="{{ route('admin.sop.index') }}" class="{{ request()->routeIs('admin.sop.*') ? 'aktif' : '' }}">&#128737; Dokumen SOP</a>
+            <a href="{{ route('admin.kontak.index') }}" class="{{ request()->routeIs('admin.kontak.*') ? 'aktif' : '' }}">
+                &#9993; Pesan Kontak
+                @php($baru = \App\Models\KontakPesan::where('dibaca', false)->count())
+                @if ($baru > 0)
+                    <span style="background:#c8102e; color:#fff; border-radius:10px; padding:1px 8px; font-size:.75rem;">
+                        {{ $baru }}
+                    </span>
+                @endif
+            </a>
 
             <div class="grup">Konten Website</div>
             @foreach (\App\Models\ContentGroup::orderBy('urutan')->get() as $g)
