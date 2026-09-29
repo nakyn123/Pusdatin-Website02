@@ -72,7 +72,7 @@
                                     @if ($namaField)
                                         <div>
                                             <label style="font-size:0.82rem; color:#666; margin-bottom:2px; display:block;">Nama Mitra #{{ $index }}</label>
-                                            <input type="text" name="fields[{{ $namaField->id }}]" value="{{ old("fields.$namaField->id", $values[$namaField->id] ?? '') }}" placeholder="Nama Mitra">
+                                            <input type="text" name="fields[{{ $namaField->id }}]" value="{{ old("fields.$namaField->id", $values[$namaField->id] ?? '') }}" placeholder="Nama Mitra" maxlength="50">
                                         </div>
                                     @endif
 
@@ -83,25 +83,19 @@
                                         </div>
                                         {{-- Tombol Hapus --}}
                                         <div style="width:100%; display:flex; justify-content:flex-end; margin-top:12px;">
-                                            <form method="POST"
-                                                action="{{ route('admin.konten.mitra.destroy', [$group, $index]) }}"
-                                                onsubmit="return confirm('Yakin ingin menghapus mitra ini? Data nama dan logo akan dihapus.');">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit"
-                                                        style="
-                                                            background:#fff;
-                                                            color:#dc2626;
-                                                            border:1px solid #dc2626;
-                                                            padding:8px 16px;
-                                                            border-radius:6px;
-                                                            font-size:.82rem;
-                                                            cursor:pointer;
-                                                        ">
-                                                    🗑 Hapus Mitra
-                                                </button>
-                                            </form>
+                                            <button type="button"
+                                                    onclick="hapusMitra({{ $index }})"
+                                                    style="
+                                                        background:#fff;
+                                                        color:#dc2626;
+                                                        border:1px solid #dc2626;
+                                                        padding:8px 16px;
+                                                        border-radius:6px;
+                                                        font-size:.82rem;
+                                                        cursor:pointer;
+                                                    ">
+                                                🗑 Hapus Mitra
+                                            </button>
                                         </div>
                                     @endif
                                 </div>
@@ -118,6 +112,17 @@
                         </button>
                     @endif
                 </form>
+
+                                {{-- Form hapus mitra dibuat di luar form simpan --}}
+                @foreach ($fieldsGrouped as $index => $fields)
+                    <form id="form-hapus-mitra-{{ $index }}"
+                        method="POST"
+                        action="{{ route('admin.konten.mitra.destroy', [$group, $index]) }}"
+                        style="display:none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                @endforeach
             </div>
 
             {{-- 2. Kartu Form Tambah Mitra Baru --}}
@@ -181,4 +186,14 @@
 
     </div>
 </div>
+
+<script>
+function hapusMitra(index) {
+    if (!confirm('Yakin ingin menghapus mitra ini? Data nama dan logo akan dihapus.')) {
+        return;
+    }
+
+    document.getElementById('form-hapus-mitra-' + index).submit();
+}
+</script>
 @endsection
